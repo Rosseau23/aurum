@@ -1,0 +1,81 @@
+/* ============================================================
+   Aurum — Design Tokens
+   Premium minimalist palette: carbon black, copper, soft gold
+   ============================================================ */
+
+:root {
+  /* Surfaces */
+  --bg-0: #0a0a0b;          /* page background — matte black */
+  --bg-1: #0f0f11;          /* section subtle */
+  --bg-2: #16161a;          /* card / surface (graphite) */
+  --bg-3: #1c1c21;          /* elevated surface */
+  --bg-4: #232329;          /* hover surface */
+
+  /* Strokes */
+  --stroke-1: rgba(255, 255, 255, 0.06);
+  --stroke-2: rgba(255, 255, 255, 0.10);
+  --stroke-3: rgba(255, 255, 255, 0.16);
+
+  /* Text */
+  --text-0: #f5f5f5;        /* primary off-white */
+  --text-1: #d8d8da;        /* near-primary */
+  --text-2: #9a9aa3;        /* secondary soft grey */
+  --text-3: #6c6c75;        /* muted */
+  --text-4: #4a4a52;        /* very muted */
+
+  /* Accents */
+  --copper: #b87333;        /* metallic copper */
+  --copper-soft: #c98a4b;
+  --copper-deep: #8a5524;
+  --gold: #d4a76a;          /* soft gold */
+  --gold-soft: #e3bf8a;
+  --titanium: #8c8f96;      /* titanium grey */
+
+  /* States */
+  --success: #5fb37c;
+  --warning: #e0a458;
+  --danger: #d96b6b;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
+  --shadow-md: 0 8px 24px -8px rgba(0,0,0,0.6), 0 2px 6px rgba(0,0,0,0.4);
+  --shadow-lg: 0 24px 60px -16px rgba(0,0,0,0.7), 0 8px 20px rgba(0,0,0,0.5);
+  --shadow-copper: 0 0 0 1px rgba(184, 115, 51, 0.25), 0 12px 32px -8px rgba(184, 115, 51, 0.25);
+
+  /* Radii */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 999px;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  /* Typography */
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Inter Tight", "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --t-fast: 140ms;
+  --t-base: 220ms;
+  --t-slow: 360ms;
+
+  /* Layout */
+  --container: 1240px;
+  --navbar-h: 68px;
+}

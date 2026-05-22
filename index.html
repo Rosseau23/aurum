@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0a0a0b" />
+  <meta name="description" content="Plataforma premium para la reventa de productos digitales: diamantes Free Fire, pines y gift cards." />
+  <title>Aurum — Premium Digital Reseller</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+  <link rel="stylesheet" href="/css/variables.css" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/responsive.css" />
+</head>
+<body data-testid="app-body">
+  <!-- Ambient grain & gradient -->
+  <div class="ambient-grain" aria-hidden="true"></div>
+  <div class="ambient-glow" aria-hidden="true"></div>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <header class="navbar" data-testid="main-navbar">
+    <div class="navbar__inner">
+      <a href="#" class="brand" data-testid="brand-logo">
+        <span class="brand__mark">
+          <i class="fa-solid fa-gem"></i>
+        </span>
+        <span class="brand__name">Aurum<span class="brand__dot">.</span></span>
+      </a>
+
+      <nav class="navbar__nav" aria-label="Principal">
+        <a href="#dashboard" class="nav-link" data-testid="nav-dashboard">Dashboard</a>
+        <a href="#catalog" class="nav-link" data-testid="nav-catalog">Catálogo</a>
+        <a href="#history" class="nav-link" data-testid="nav-history">Historial</a>
+      </nav>
+
+      <div class="navbar__actions">
+        <div class="status-pill" id="apiStatusPill" data-testid="api-status-pill">
+          <span class="status-pill__dot"></span>
+          <span class="status-pill__text">Conectando…</span>
+        </div>
+        <button class="btn btn--ghost" id="logoutBtn" data-testid="logout-btn" hidden>
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          <span>Salir</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== AUTH SCREEN ==================== -->
+  <section class="auth-screen" id="authScreen" data-testid="auth-screen">
+    <div class="auth-card">
+      <div class="auth-card__head">
+        <div class="auth-card__badge">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Acceso seguro</span>
+        </div>
+        <h1 class="auth-card__title">Bienvenido a Aurum</h1>
+        <p class="auth-card__subtitle">Plataforma profesional de reventa digital. Inicia sesión para continuar.</p>
+      </div>
+
+      <form class="auth-form" id="authForm" novalidate>
+        <div class="field">
+          <label class="field__label" for="emailInput">Correo electrónico</label>
+          <div class="field__input">
+            <i class="fa-regular fa-envelope"></i>
+            <input
+              type="email"
+              id="emailInput"
+              name="email"
+              placeholder="admin@premiumdigital.com"
+              autocomplete="email"
+              required
+              data-testid="auth-email-input"
+            />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="passwordInput">Contraseña</label>
+          <div class="field__input">
+            <i class="fa-solid fa-lock"></i>
+            <input
+              type="password"
+              id="passwordInput"
+              name="password"
+              placeholder="••••••••"
+              autocomplete="current-password"
+              required
+              data-testid="auth-password-input"
+            />
+            <button type="button" class="field__toggle" id="togglePassword" aria-label="Mostrar contraseña">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--block" id="authSubmit" data-testid="auth-submit-btn">
+          <span class="btn__label">Iniciar sesión</span>
+          <i class="fa-solid fa-arrow-right btn__icon"></i>
+        </button>
+
+        <p class="auth-form__hint">
+          Demo: <code>admin@premiumdigital.com</code> / <code>admin123</code>
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ==================== MAIN APP ==================== -->
+  <main class="app" id="appMain" hidden data-testid="app-main">
+    <!-- Hero / Dashboard -->
+    <section class="section section--hero" id="dashboard">
+      <div class="section__head">
+        <div>
+          <span class="eyebrow" data-testid="hero-eyebrow">Panel principal</span>
+          <h2 class="section__title">Resumen de tu cuenta</h2>
+        </div>
+        <button class="btn btn--ghost btn--icon" id="refreshWalletBtn" data-testid="refresh-wallet-btn" aria-label="Actualizar saldo">
+          <i class="fa-solid fa-arrows-rotate"></i>
+          <span>Actualizar</span>
+        </button>
+      </div>
+
+      <div class="dashboard-grid">
+        <!-- Wallet card -->
+        <article class="wallet-card" id="walletCard" data-testid="wallet-card">
+          <div class="wallet-card__top">
+            <span class="wallet-card__label">Saldo disponible</span>
+            <span class="wallet-card__chip">
+              <i class="fa-solid fa-bolt"></i> Live
+            </span>
+          </div>
+
+          <div class="wallet-card__balance" id="walletBalance" data-testid="wallet-balance">
+            <span class="skeleton skeleton--text" style="width:180px;height:38px"></span>
+          </div>
+
+          <div class="wallet-card__meta">
+            <div>
+              <span class="wallet-card__meta-label">Moneda</span>
+              <span class="wallet-card__meta-value" id="walletCurrency" data-testid="wallet-currency">—</span>
+            </div>
+            <div>
+              <span class="wallet-card__meta-label">Última actualización</span>
+              <span class="wallet-card__meta-value" id="walletUpdated" data-testid="wallet-updated">—</span>
+            </div>
+          </div>
+
+          <div class="wallet-card__shine" aria-hidden="true"></div>
+          <div class="wallet-card__grid" aria-hidden="true"></div>
+        </article>
+
+        <!-- Stats -->
+        <div class="stats-stack">
+          <article class="stat-card" data-testid="stat-orders">
+            <div class="stat-card__icon stat-card__icon--copper">
+              <i class="fa-solid fa-receipt"></i>
+            </div>
+            <div>
+              <span class="stat-card__label">Órdenes hoy</span>
+              <strong class="stat-card__value" id="statOrders">—</strong>
+            </div>
+          </article>
+
+          <article class="stat-card" data-testid="stat-success">
+            <div class="stat-card__icon stat-card__icon--gold">
+              <i class="fa-solid fa-check-double"></i>
+            </div>
+            <div>
+              <span class="stat-card__label">Tasa de éxito</span>
+              <strong class="stat-card__value" id="statSuccess">—</strong>
+            </div>
+          </article>
+
+          <article class="stat-card" data-testid="stat-products">
+            <div class="stat-card__icon stat-card__icon--titanium">
+              <i class="fa-solid fa-box"></i>
+            </div>
+            <div>
+              <span class="stat-card__label">Productos activos</span>
+              <strong class="stat-card__value" id="statProducts">—</strong>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Catalog -->
+    <section class="section" id="catalog">
+      <div class="section__head">
+        <div>
+          <span class="eyebrow">Catálogo en tiempo real</span>
+          <h2 class="section__title">Productos disponibles</h2>
+        </div>
+
+        <div class="filter-bar" data-testid="filter-bar">
+          <button class="chip chip--active" data-filter="all" data-testid="filter-all">Todos</button>
+          <button class="chip" data-filter="freefire" data-testid="filter-freefire">Free Fire</button>
+          <button class="chip" data-filter="giftcard" data-testid="filter-giftcard">Gift Cards</button>
+          <button class="chip" data-filter="membership" data-testid="filter-membership">Membresías</button>
+        </div>
+      </div>
+
+      <div class="products-grid" id="productsGrid" data-testid="products-grid">
+        <!-- Skeletons inserted by JS -->
+      </div>
+
+      <div class="empty-state" id="emptyState" hidden data-testid="empty-state">
+        <i class="fa-regular fa-folder-open"></i>
+        <h3>Sin resultados</h3>
+        <p>No encontramos productos en esta categoría. Prueba con otro filtro.</p>
+      </div>
+    </section>
+
+    <!-- History -->
+    <section class="section" id="history">
+      <div class="section__head">
+        <div>
+          <span class="eyebrow">Actividad reciente</span>
+          <h2 class="section__title">Historial de órdenes</h2>
+        </div>
+      </div>
+
+      <div class="orders-table-wrap" data-testid="orders-table-wrap">
+        <table class="orders-table">
+          <thead>
+            <tr>
+              <th>Orden</th>
+              <th>Producto</th>
+              <th>Player ID</th>
+              <th>Monto</th>
+              <th>Estado</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody id="ordersTbody">
+            <tr class="orders-table__empty">
+              <td colspan="6">Aún no has realizado compras.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div>© <span id="footerYear"></span> Aurum Digital. Hecho con precisión.</div>
+      <div class="footer__meta">
+        <span><i class="fa-solid fa-shield-halved"></i> Conexiones cifradas</span>
+        <span><i class="fa-solid fa-bolt"></i> API en tiempo real</span>
+      </div>
+    </footer>
+  </main>
+
+  <!-- ==================== PURCHASE MODAL ==================== -->
+  <div class="modal" id="purchaseModal" hidden data-testid="purchase-modal" role="dialog" aria-modal="true">
+    <div class="modal__backdrop" data-close-modal></div>
+    <div class="modal__panel" role="document">
+      <button class="modal__close" data-close-modal aria-label="Cerrar" data-testid="modal-close-btn">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="modal__head">
+        <span class="eyebrow">Confirmar compra</span>
+        <h3 id="modalProductName">—</h3>
+        <p id="modalProductDesc" class="modal__desc">—</p>
+      </div>
+
+      <form class="modal__form" id="purchaseForm" novalidate>
+        <div class="field">
+          <label class="field__label" for="playerIdInput">Player ID / Identificador</label>
+          <div class="field__input">
+            <i class="fa-solid fa-id-badge"></i>
+            <input
+              type="text"
+              id="playerIdInput"
+              name="playerId"
+              placeholder="Ej: 1234567890"
+              required
+              data-testid="player-id-input"
+            />
+          </div>
+          <span class="field__hint">Verifica el ID antes de confirmar. Las recargas son irreversibles.</span>
+        </div>
+
+        <div class="purchase-summary" data-testid="purchase-summary">
+          <div class="purchase-summary__row">
+            <span>Producto</span>
+            <strong id="summaryName">—</strong>
+          </div>
+          <div class="purchase-summary__row">
+            <span>Precio</span>
+            <strong id="summaryPrice">—</strong>
+          </div>
+          <div class="purchase-summary__row purchase-summary__row--total">
+            <span>Total a debitar</span>
+            <strong id="summaryTotal">—</strong>
+          </div>
+        </div>
+
+        <div class="modal__actions">
+          <button type="button" class="btn btn--ghost" data-close-modal data-testid="modal-cancel-btn">Cancelar</button>
+          <button type="submit" class="btn btn--primary" id="confirmPurchaseBtn" data-testid="confirm-purchase-btn">
+            <span class="btn__label">Confirmar compra</span>
+            <i class="fa-solid fa-circle-check btn__icon"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== TOAST CONTAINER ==================== -->
+  <div class="toast-stack" id="toastStack" data-testid="toast-stack" aria-live="polite"></div>
+
+  <!-- ==================== SCRIPTS ==================== -->
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>

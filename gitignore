@@ -1,0 +1,18 @@
+node_modules/
+.env
+.env.local
+.DS_Store
+*.log
+dist/
+build/
+.idea/
+.vscode/
+
+# Python (FastAPI mirror)
+__pycache__/
+*.pyc
+.venv/
+
+# Lockfiles you might or might not want to commit; uncomment if needed
+# yarn.lock
+# package-lock.json
